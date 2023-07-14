@@ -11,6 +11,7 @@
     <FileVersion>1.8</FileVersion>
     <Copyright>Made By Draff :)</Copyright>
     <Version>1.8</Version>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
