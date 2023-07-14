@@ -18,18 +18,18 @@ namespace Xbox_Achievement_Unlocker
 {
     public partial class MainWindow : Form
     {
-        public Mem m = new Mem();
+        public Mem m = new();
         bool attached = false;
         string filter1, filter2, filter3, filter4;
 
         private dynamic dataProfile, dataTitles;
 
         string currentSystemLanguage = System.Globalization.CultureInfo.CurrentCulture.Name;
-        static HttpClientHandler handler = new HttpClientHandler()
+        static HttpClientHandler handler = new()
         {
             AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
         };
-        HttpClient client = new HttpClient(handler);
+        HttpClient client = new(handler);
 
         public MainWindow()
         {
@@ -58,7 +58,7 @@ namespace Xbox_Achievement_Unlocker
             LST_GameFilterType.SelectedIndex = 2;
             try
             {
-                Updater Updater = new Updater();
+                Updater Updater = new();
                 //update checker
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add("Host", "api.github.com");
@@ -135,7 +135,7 @@ namespace Xbox_Achievement_Unlocker
                     XauthStrings[i] = m.ReadString(address.ToString("X"), length: 10000);
                     i++;
                 }
-                Dictionary<string, int> frequency = new Dictionary<string, int>();
+                Dictionary<string, int> frequency = new();
                 foreach (string str in XauthStrings)
                 {
                     if (!frequency.ContainsKey(str))
@@ -185,7 +185,7 @@ namespace Xbox_Achievement_Unlocker
 
         public static string xuid;
         public static string responseString;
-        AchievementList ALForm = new AchievementList();
+        AchievementList ALForm = new();
         public async void LoadAchievementList(object sender, EventArgs e)
         {
             PictureBox SelectedGame = (sender as PictureBox);
@@ -210,7 +210,7 @@ namespace Xbox_Achievement_Unlocker
             try
             {
                 responseString = await client.GetStringAsync("https://achievements.xboxlive.com/users/xuid(" + xuid + ")/achievements?titleId=" + SelectedGame.Name.ToString() + "&maxItems=1000");
-                AchievementList ALForm = new AchievementList();
+                AchievementList ALForm = new();
                 ALForm.Show();
                 ALForm.PopulateAchievementList(responseString);
             }
@@ -228,7 +228,7 @@ namespace Xbox_Achievement_Unlocker
 
         async void LoadInfo()
         {
-            Panel_Recents.Controls.Clear();
+            Panel_Compatible.Controls.Clear();
             //required headers for a request to go through. (just taken from a legitimate request to profile.xboxlive.com)
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("x-xbl-contract-version", "2");
@@ -296,7 +296,7 @@ namespace Xbox_Achievement_Unlocker
                 Jsonresponse = (dynamic)JObject.Parse(responseString);
                 const int itemWidth = 150;
                 const int rowHeight = 205;
-                int itemCountPerRow = 6,
+                int itemCountPerRow = 5,
                     newline = 0,
                     itemWidthWithMargin = 0,
                     count = 0;
@@ -316,52 +316,28 @@ namespace Xbox_Achievement_Unlocker
                     {
                         if (count % itemCountPerRow == 0 && count != 0)
                         {
-                            newline = newline + rowHeight;
+                            newline += rowHeight;
                             count = 0;
                         }
-                        PictureBox GameImage = new PictureBox();
-                        GameImage.Location = new Point(itemWidthWithMargin * count, newline);
-                        GameImage.Size = new Size(itemWidth, 150);
-                        if (count == 0)
-                            itemWidthWithMargin = GameImage.Width + GameImage.Margin.Left + GameImage.Margin.Right;
-                        GameImage.SizeMode = PictureBoxSizeMode.StretchImage;
-                        GameImage.ImageLocation = Jsonresponse.titles[i].displayImage.ToString() + "?w=512&h=512&format=jpg";
-                        GameImage.Name = Jsonresponse.titles[i].titleId.ToString();
-                        GameImage.Cursor = Cursors.Hand;
-                        GameImage.Click += new EventHandler(this.LoadAchievementList);
-                        Panel_Recents.Controls.Add(GameImage);
-                        //Create the dynamic TextBox.
-                        TextBox textbox = new TextBox();
-                        textbox.Location = new Point(itemWidthWithMargin * count, 150 + newline);
-                        textbox.Size = new Size(itemWidth, 20);
-                        textbox.BorderStyle = BorderStyle.None;
-                        textbox.Margin = new Padding(textbox.Margin.Left + 2, 0, textbox.Margin.Right + 2, 0);
-                        textbox.ReadOnly = true;
-                        textbox.Name = "txt_" + (count + 1);
-                        textbox.Text = Jsonresponse.titles[i].name;
-                        Panel_Recents.Controls.Add(textbox);
-                        TextBox titleidBox = new TextBox();
-                        titleidBox.Location = new Point(itemWidthWithMargin * count, 170 + newline);
-                        titleidBox.Size = new Size(itemWidth, 20);
-                        titleidBox.BorderStyle = BorderStyle.None;
-                        titleidBox.ReadOnly = true;
-                        titleidBox.Name = "txt_" + Jsonresponse.titles[i].modernTitleId;
-                        titleidBox.Text = "TitleID: " + Jsonresponse.titles[i].modernTitleId;
-                        Panel_Recents.Controls.Add(titleidBox);
 
-                        if (count == 0)
-                            // calculate how many items will fit the current width
-                            itemCountPerRow = Convert.ToInt32(Math.Floor(Convert.ToDouble(Panel_Recents.Width)
-                                / (itemWidth + GameImage.Margin.Left + GameImage.Margin.Right)));
+                        //here code create table
+
+                        itemWidthWithMargin = Draw_Picture_Game(Jsonresponse.titles[i], count, newline, Panel_Compatible, itemWidth, itemWidthWithMargin, itemCountPerRow);
+                        //End New
 
                         count++;
+                        if (i == 10)
+                        {
+                            break;
+                        }
                     }
                     line += Jsonresponse.titles[i].modernTitleId + ","
-                        +Jsonresponse.titles[i].name + ","
-                        +Jsonresponse.titles[i].displayImage.ToString()
+                        + Jsonresponse.titles[i].name + ","
+                        + "compatible"
+                        //+ Jsonresponse.titles[i].displayImage.ToString()
                         + "\n";
                 }
-                saveFileGameList(line);
+                SaveFileGameList(line);
             }
             catch (HttpRequestException ex)
             {
@@ -371,12 +347,56 @@ namespace Xbox_Achievement_Unlocker
                     MessageBox.Show("something did a fucky wucky and I dont have a specific message for the error code", "fucky wucky");
             }
         }
-        private void saveFileGameList(string line)
+
+        private int Draw_Picture_Game(dynamic game, int count, int newline, Panel location, int itemWidth = 150, int itemWidthWithMargin = 0, int itemCountPerRow = 6)
+        {
+            PictureBox GameImage = new()
+            {
+                Location = new Point(itemWidthWithMargin * count, newline),
+                Size = new Size(itemWidth, 150),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                ImageLocation = game.displayImage.ToString() + "?w=512&h=512&format=jpg",
+                Name = game.titleId.ToString(),
+                Cursor = Cursors.Hand
+            };
+            GameImage.Click += new EventHandler(this.LoadAchievementList);
+            if (count == 0)
+                itemWidthWithMargin = GameImage.Width + GameImage.Margin.Left + GameImage.Margin.Right;
+            TextBox textbox = new()
+            {
+                Location = new Point(itemWidthWithMargin * count, 150 + newline),
+                Size = new Size(itemWidth, 20),
+                BorderStyle = BorderStyle.None,
+                Margin = new Padding(this.Margin.Left + 2, 0, this.Margin.Right + 2, 0),
+                ReadOnly = true,
+                Name = "txt_" + (count + 1),
+                Text = game.name,
+            };
+            TextBox titleidBox = new()
+            {
+                Location = new Point(itemWidthWithMargin * count, 170 + newline),
+                Size = new Size(itemWidth, 20),
+                BorderStyle = BorderStyle.None,
+                ReadOnly = true,
+                Name = "txt_" + game.modernTitleId,
+                Text = "TitleID: " + game.modernTitleId
+            };
+
+            location.Controls.Add(GameImage);
+            location.Controls.Add(textbox);
+            location.Controls.Add(titleidBox);
+            if (count == 0)
+                itemCountPerRow = Convert.ToInt32(Math.Floor(Convert.ToDouble(location.Width)
+                    / (itemWidth + GameImage.Margin.Left + GameImage.Margin.Right)));
+            return itemWidthWithMargin;
+        }
+
+        private static void SaveFileGameList(string line)
         {
             try
             {
                 String path = "GamesListAll.csv";
-                StreamWriter sw = new StreamWriter(path);
+                StreamWriter sw = new(path);
                 sw.WriteLine(line);
                 sw.Close();
             }
@@ -391,12 +411,12 @@ namespace Xbox_Achievement_Unlocker
         }
         private void BTN_SpoofGame_Click(object sender, EventArgs e)
         {
-            Game_Spoofer SpoofForm = new Game_Spoofer(dataProfile, dataTitles);
+            Game_Spoofer SpoofForm = new(dataProfile, dataTitles);
             SpoofForm.Show();
         }
         private void BTN_StatsEditor_Click(object sender, EventArgs e)
         {
-            StatsEditor StatsForm = new StatsEditor();
+            StatsEditor StatsForm = new();
             StatsForm.Show();
         }
 
@@ -439,8 +459,8 @@ namespace Xbox_Achievement_Unlocker
         async void BTN_SaveToFile_Click(object sender, EventArgs e)
         {
             try
-            {                
-                using (StreamWriter writer = new StreamWriter("GameList.txt"))
+            {
+                using (StreamWriter writer = new("GameList.txt"))
                 {
                     for (int i = 0; i < dataTitles.titles.Count; i++)
                     {
@@ -475,9 +495,11 @@ namespace Xbox_Achievement_Unlocker
             }
             Thread.Sleep(5000);
             //open the uwp xbox app
-            Process p = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.UseShellExecute = true;
+            Process p = new();
+            ProcessStartInfo startInfo = new()
+            {
+                UseShellExecute = true
+            };
             startInfo.FileName = startInfo.FileName = @"shell:appsFolder\Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App";
             p.StartInfo = startInfo;
             p.Start();

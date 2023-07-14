@@ -36,7 +36,7 @@ namespace Xbox_Achievement_Unlocker
             BTN_GrabXauth = new System.Windows.Forms.Button();
             LBL_Gamertag = new System.Windows.Forms.Label();
             LBL_Gamerscore = new System.Windows.Forms.Label();
-            Panel_Recents = new System.Windows.Forms.Panel();
+            Panel_Compatible = new System.Windows.Forms.Panel();
             BTN_SpoofGame = new System.Windows.Forms.Button();
             TXT_Xuid = new System.Windows.Forms.TextBox();
             BTN_SaveToFile = new System.Windows.Forms.Button();
@@ -48,6 +48,14 @@ namespace Xbox_Achievement_Unlocker
             TXT_GameFilterTitle = new System.Windows.Forms.TextBox();
             TXT_Xauth = new System.Windows.Forms.TextBox();
             BTN_StatsEditor = new System.Windows.Forms.Button();
+            tabControl_Global = new System.Windows.Forms.TabControl();
+            tab_compatible = new System.Windows.Forms.TabPage();
+            tab_incompatible = new System.Windows.Forms.TabPage();
+            Panel_inCompatible = new System.Windows.Forms.Panel();
+            tab_others = new System.Windows.Forms.TabPage();
+            tabControl_Global.SuspendLayout();
+            tab_compatible.SuspendLayout();
+            tab_incompatible.SuspendLayout();
             SuspendLayout();
             // 
             // BGWorker
@@ -107,21 +115,21 @@ namespace Xbox_Achievement_Unlocker
             LBL_Gamerscore.TabIndex = 7;
             LBL_Gamerscore.Text = "Gamerscore: ";
             // 
-            // Panel_Recents
+            // Panel_Compatible
             // 
-            Panel_Recents.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            Panel_Recents.AutoScroll = true;
-            Panel_Recents.Location = new System.Drawing.Point(4, 176);
-            Panel_Recents.Name = "Panel_Recents";
-            Panel_Recents.Size = new System.Drawing.Size(793, 333);
-            Panel_Recents.TabIndex = 8;
+            Panel_Compatible.AutoScroll = true;
+            Panel_Compatible.Dock = System.Windows.Forms.DockStyle.Fill;
+            Panel_Compatible.Location = new System.Drawing.Point(3, 3);
+            Panel_Compatible.Name = "Panel_Compatible";
+            Panel_Compatible.Size = new System.Drawing.Size(798, 293);
+            Panel_Compatible.TabIndex = 8;
             // 
             // BTN_SpoofGame
             // 
             BTN_SpoofGame.Enabled = false;
-            BTN_SpoofGame.Location = new System.Drawing.Point(631, 151);
+            BTN_SpoofGame.Location = new System.Drawing.Point(687, 161);
             BTN_SpoofGame.Name = "BTN_SpoofGame";
-            BTN_SpoofGame.Size = new System.Drawing.Size(158, 23);
+            BTN_SpoofGame.Size = new System.Drawing.Size(122, 23);
             BTN_SpoofGame.TabIndex = 5;
             BTN_SpoofGame.Text = "Open Game Spoofer";
             BTN_SpoofGame.UseVisualStyleBackColor = true;
@@ -140,9 +148,9 @@ namespace Xbox_Achievement_Unlocker
             // BTN_SaveToFile
             // 
             BTN_SaveToFile.Enabled = false;
-            BTN_SaveToFile.Location = new System.Drawing.Point(631, 76);
+            BTN_SaveToFile.Location = new System.Drawing.Point(687, 86);
             BTN_SaveToFile.Name = "BTN_SaveToFile";
-            BTN_SaveToFile.Size = new System.Drawing.Size(158, 46);
+            BTN_SaveToFile.Size = new System.Drawing.Size(122, 46);
             BTN_SaveToFile.TabIndex = 4;
             BTN_SaveToFile.Text = "Save games list to file";
             BTN_SaveToFile.UseVisualStyleBackColor = true;
@@ -152,16 +160,16 @@ namespace Xbox_Achievement_Unlocker
             // 
             LST_GameFilterType.FormattingEnabled = true;
             LST_GameFilterType.Items.AddRange(new object[] { "All", "Console Only", "New Gen", "Win32" });
-            LST_GameFilterType.Location = new System.Drawing.Point(525, 127);
+            LST_GameFilterType.Location = new System.Drawing.Point(542, 134);
             LST_GameFilterType.Name = "LST_GameFilterType";
-            LST_GameFilterType.Size = new System.Drawing.Size(100, 23);
+            LST_GameFilterType.Size = new System.Drawing.Size(99, 23);
             LST_GameFilterType.TabIndex = 3;
             LST_GameFilterType.SelectedIndexChanged += LST_GameFilter_SelectedIndexChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(405, 130);
+            label1.Location = new System.Drawing.Point(422, 137);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(85, 15);
             label1.TabIndex = 13;
@@ -193,7 +201,7 @@ namespace Xbox_Achievement_Unlocker
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(405, 154);
+            label2.Location = new System.Drawing.Point(422, 161);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(109, 15);
             label2.TabIndex = 17;
@@ -201,9 +209,9 @@ namespace Xbox_Achievement_Unlocker
             // 
             // TXT_GameFilterTitle
             // 
-            TXT_GameFilterTitle.Location = new System.Drawing.Point(525, 151);
+            TXT_GameFilterTitle.Location = new System.Drawing.Point(542, 158);
             TXT_GameFilterTitle.Name = "TXT_GameFilterTitle";
-            TXT_GameFilterTitle.Size = new System.Drawing.Size(100, 23);
+            TXT_GameFilterTitle.Size = new System.Drawing.Size(99, 23);
             TXT_GameFilterTitle.TabIndex = 18;
             // 
             // TXT_Xauth
@@ -219,19 +227,71 @@ namespace Xbox_Achievement_Unlocker
             // BTN_StatsEditor
             // 
             BTN_StatsEditor.Enabled = false;
-            BTN_StatsEditor.Location = new System.Drawing.Point(630, 126);
+            BTN_StatsEditor.Location = new System.Drawing.Point(686, 136);
             BTN_StatsEditor.Name = "BTN_StatsEditor";
-            BTN_StatsEditor.Size = new System.Drawing.Size(158, 23);
+            BTN_StatsEditor.Size = new System.Drawing.Size(122, 23);
             BTN_StatsEditor.TabIndex = 20;
             BTN_StatsEditor.Text = "Open Stats Editor";
             BTN_StatsEditor.UseVisualStyleBackColor = true;
             BTN_StatsEditor.Click += BTN_StatsEditor_Click;
             // 
+            // tabControl_Global
+            // 
+            tabControl_Global.Controls.Add(tab_compatible);
+            tabControl_Global.Controls.Add(tab_incompatible);
+            tabControl_Global.Controls.Add(tab_others);
+            tabControl_Global.Location = new System.Drawing.Point(4, 185);
+            tabControl_Global.Name = "tabControl_Global";
+            tabControl_Global.SelectedIndex = 0;
+            tabControl_Global.Size = new System.Drawing.Size(812, 327);
+            tabControl_Global.TabIndex = 21;
+            // 
+            // tab_compatible
+            // 
+            tab_compatible.Controls.Add(Panel_Compatible);
+            tab_compatible.Location = new System.Drawing.Point(4, 24);
+            tab_compatible.Name = "tab_compatible";
+            tab_compatible.Padding = new System.Windows.Forms.Padding(3);
+            tab_compatible.Size = new System.Drawing.Size(804, 299);
+            tab_compatible.TabIndex = 0;
+            tab_compatible.Text = "Compatible";
+            tab_compatible.UseVisualStyleBackColor = true;
+            // 
+            // tab_incompatible
+            // 
+            tab_incompatible.Controls.Add(Panel_inCompatible);
+            tab_incompatible.Location = new System.Drawing.Point(4, 24);
+            tab_incompatible.Name = "tab_incompatible";
+            tab_incompatible.Padding = new System.Windows.Forms.Padding(3);
+            tab_incompatible.Size = new System.Drawing.Size(804, 299);
+            tab_incompatible.TabIndex = 1;
+            tab_incompatible.Text = "Incompatible";
+            tab_incompatible.UseVisualStyleBackColor = true;
+            // 
+            // Panel_inCompatible
+            // 
+            Panel_inCompatible.AutoScroll = true;
+            Panel_inCompatible.Dock = System.Windows.Forms.DockStyle.Fill;
+            Panel_inCompatible.Location = new System.Drawing.Point(3, 3);
+            Panel_inCompatible.Name = "Panel_inCompatible";
+            Panel_inCompatible.Size = new System.Drawing.Size(798, 293);
+            Panel_inCompatible.TabIndex = 9;
+            // 
+            // tab_others
+            // 
+            tab_others.Location = new System.Drawing.Point(4, 24);
+            tab_others.Name = "tab_others";
+            tab_others.Size = new System.Drawing.Size(804, 299);
+            tab_others.TabIndex = 2;
+            tab_others.Text = "Others";
+            tab_others.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 512);
+            ClientSize = new System.Drawing.Size(828, 512);
+            Controls.Add(tabControl_Global);
             Controls.Add(BTN_StatsEditor);
             Controls.Add(TXT_Xauth);
             Controls.Add(TXT_GameFilterTitle);
@@ -242,7 +302,6 @@ namespace Xbox_Achievement_Unlocker
             Controls.Add(BTN_SaveToFile);
             Controls.Add(BTN_SpoofGame);
             Controls.Add(TXT_Xuid);
-            Controls.Add(Panel_Recents);
             Controls.Add(LBL_Gamerscore);
             Controls.Add(LBL_Gamertag);
             Controls.Add(BTN_GrabXauth);
@@ -252,6 +311,9 @@ namespace Xbox_Achievement_Unlocker
             Name = "MainWindow";
             Text = "MainWindow";
             Shown += MainWindow_Shown;
+            tabControl_Global.ResumeLayout(false);
+            tab_compatible.ResumeLayout(false);
+            tab_incompatible.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -264,7 +326,7 @@ namespace Xbox_Achievement_Unlocker
         private System.Windows.Forms.Button BTN_GrabXauth;
         private System.Windows.Forms.Label LBL_Gamertag;
         private System.Windows.Forms.Label LBL_Gamerscore;
-        private System.Windows.Forms.Panel Panel_Recents;
+        private System.Windows.Forms.Panel Panel_Compatible;
         private System.Windows.Forms.Button BTN_SpoofGame;
         private System.Windows.Forms.TextBox TXT_Xuid;
         private System.Windows.Forms.Button BTN_SaveToFile;
@@ -276,6 +338,11 @@ namespace Xbox_Achievement_Unlocker
         private System.Windows.Forms.TextBox TXT_GameFilterTitle;
         private System.Windows.Forms.TextBox TXT_Xauth;
         private System.Windows.Forms.Button BTN_StatsEditor;
+        private System.Windows.Forms.TabControl tabControl_Global;
+        private System.Windows.Forms.TabPage tab_compatible;
+        private System.Windows.Forms.TabPage tab_incompatible;
+        private System.Windows.Forms.TabPage tab_others;
+        private System.Windows.Forms.Panel Panel_inCompatible;
     }
 }
 

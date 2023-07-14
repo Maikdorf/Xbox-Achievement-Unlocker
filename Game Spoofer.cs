@@ -29,14 +29,14 @@ namespace Xbox_Achievement_Unlocker
             this.dataProfile = dataProfile;
             this.dataTitles = dataTitles;
             InitializeComponent();
-            fill_Cb_GameList();
+            Fill_Cb_GameList();
         }
         string currentSystemLanguage = System.Globalization.CultureInfo.CurrentCulture.Name;
-        static HttpClientHandler handler = new HttpClientHandler()
+        static HttpClientHandler handler = new ()
         {
             AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
         };
-        HttpClient client = new HttpClient(handler);
+        HttpClient client = new (handler);
 
         bool active;
         async void BTN_Spoof_Click(object sender, EventArgs e)
@@ -55,18 +55,18 @@ namespace Xbox_Achievement_Unlocker
             Task.Run(() => Spoofing(uuiGame));
         }
 
-        private void fill_Cb_GameList()
+        private void Fill_Cb_GameList()
         {
             String line;
             try
             {
 
                 //Pass the file path and file name to the StreamReader constructor
-                StreamReader sr = new StreamReader("GamesListAll.csv");
+                StreamReader sr = new ("GamesListAll.csv");
                 //Read the first line of text
                 line = sr.ReadLine();
 
-                List<object> items = new List<object>();
+                List<object> items = new ();
                 while (line != null)
                 {
                     string[] row = line.Split(",");

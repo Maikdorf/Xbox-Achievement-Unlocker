@@ -97,16 +97,15 @@ namespace Xbox_Achievement_Unlocker
                 {
                     if (Jsonresponse.achievements[0].progression.requirements.ToString().Length > 2)
                     {
-                        if (Jsonresponse.achievements[0].progression.requirements[0].id !=
-                            "00000000-0000-0000-0000-000000000000")
+                        if (Jsonresponse.achievements[0].progression.requirements[0].id != "00000000-0000-0000-0000-000000000000")
                         {
+                            Save_Incompatible(TitleID);                            
                             InitRainbow();
                             MessageBox.Show("THIS GAME USES EVENT BASED ACHIVEMENTS.\nTHIS TOOL WILL CURRENTLY NOT WORK", "Warning");
                             label1.Visible = true;
                             StartFlashing();
+                            break;
                         }
-
-                        break;
                     }
                 }
 
@@ -171,6 +170,58 @@ namespace Xbox_Achievement_Unlocker
 
                     }
                 }
+            }
+        }
+        //Unify this function into one class
+        private static void SaveFileGameList(string line)
+        {
+            try
+            {
+                String path = "GamesListAll.csv";
+                StreamWriter sw = new(path);
+                sw.WriteLine(line);
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
+            }
+        }
+        private void Save_Incompatible(string titleId)
+        {
+            String line;
+            try
+            {
+
+                //Pass the file path and file name to the StreamReader constructor
+                StreamReader sr = new("GamesListAll.csv");
+                //Read the first line of text
+                line = sr.ReadLine();
+
+                List<object> items = new();
+                string lineAll = "";
+                while (line != null && line != "")
+                {
+                    string[] row = line.Split(",");
+                    if (row[0].ToString() == titleId && row[2].ToString() == "compatible")
+                        row[2] = "incompatible";
+                    lineAll += row[0].ToString() + "," + row[1].ToString() + "," + row[2].ToString() + "\n";
+                    line = sr.ReadLine();
+                }
+                sr.Close();
+                SaveFileGameList(lineAll);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: errro en la line" + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
             }
         }
         void SelectAchievement(object sender, EventArgs e)
