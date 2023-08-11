@@ -13,6 +13,7 @@ using Memory;
 using System.Threading;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace Xbox_Achievement_Unlocker
 {
@@ -24,7 +25,13 @@ namespace Xbox_Achievement_Unlocker
 
         private dynamic dataProfile, dataTitles;
 
-        string currentSystemLanguage = System.Globalization.CultureInfo.CurrentCulture.Name;
+        public static bool checkFileIncompatibilities;
+        IDictionary<string, string> gamesCompatibles = new Dictionary<string, string>();
+        public const string FileIncompatibleGames = "GamesListAll.csv";
+        public const string DownloadFileIncompatibleGames = "download_GamesListAll.csv";
+
+        //string currentSystemLanguage = System.Globalization.CultureInfo.CurrentCulture.Name;
+        string currentSystemLanguage = "en-US";
         static HttpClientHandler handler = new()
         {
             AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
@@ -109,8 +116,36 @@ namespace Xbox_Achievement_Unlocker
         string XauthStartAddressHex;
         long XauthLength;
         public static string xauthtoken;
+
         private async void BTN_GrabXauth_Click(object sender, EventArgs e)
         {
+            //TODO
+            DialogResult dialogResult = MessageBox.Show("Do you want to download incompatible title data?", "Download Data", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                WebClient mywebClient = new();
+                mywebClient.DownloadFile("https://lab.juanduncan.com/GamesListAll.csv", @"" + DownloadFileIncompatibleGames);
+            }
+
+            checkFileIncompatibilities = checkFileExist(DownloadFileIncompatibleGames);
+            if (checkFileIncompatibilities)
+            {
+                if (checkFileExist(FileIncompatibleGames))
+                {
+                    Load_Incompatibility_Games_Data(DownloadFileIncompatibleGames);
+                    IDictionary<string, string> downloadGamesCompatibles = gamesCompatibles;
+                    Load_Incompatibility_Games_Data(FileIncompatibleGames);
+
+                }
+                else
+                {
+                    RenameFile(DownloadFileIncompatibleGames, FileIncompatibleGames);
+                }
+
+                Load_Incompatibility_Games_Data(FileIncompatibleGames);
+
+            }
+
             if (TXT_Xauth.Text.Length > 10)
             {
                 try
@@ -182,6 +217,10 @@ namespace Xbox_Achievement_Unlocker
             }
         }
 
+        public void UpdaterGamesIncompatibles()
+        {
+
+        }
 
         public static string xuid;
         public static string responseString;
@@ -229,6 +268,7 @@ namespace Xbox_Achievement_Unlocker
         async void LoadInfo()
         {
             Panel_Compatible.Controls.Clear();
+            Panel_inCompatible.Controls.Clear();
             //required headers for a request to go through. (just taken from a legitimate request to profile.xboxlive.com)
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("x-xbl-contract-version", "2");
@@ -299,12 +339,20 @@ namespace Xbox_Achievement_Unlocker
                 int itemCountPerRow = 5,
                     newline = 0,
                     itemWidthWithMargin = 0,
-                    count = 0;
+                    count = 0,
+                    newline_i = 0,
+                    itemWidthWithMargin_i = 0,
+                    count_i = 0;
+
+
 
                 dynamic title;
                 dataTitles = Jsonresponse;
+                PB_loading.Maximum = Jsonresponse.titles.Count;
                 for (int i = 0; i < Jsonresponse.titles.Count; i++)
                 {
+                    PB_loading.Value += 1;
+
                     title = Jsonresponse.titles[i];
                     devices = title.devices.ToString();
                     titles = title.name.ToString() + " " + title.titleId.ToString();
@@ -320,24 +368,46 @@ namespace Xbox_Achievement_Unlocker
                             count = 0;
                         }
 
-                        //here code create table
-
-                        itemWidthWithMargin = Draw_Picture_Game(Jsonresponse.titles[i], count, newline, Panel_Compatible, itemWidth, itemWidthWithMargin, itemCountPerRow);
-                        //End New
-
-                        count++;
-                        if (i == 10)
+                        if (count_i % itemCountPerRow == 0 && count_i != 0)
                         {
-                            break;
+                            newline_i += rowHeight;
+                            count_i = 0;
                         }
+
+                        //here code create table
+                        if (checkFileIncompatibilities)
+                        {
+                            if (gamesCompatibles.ContainsKey(title.titleId.ToString()) && gamesCompatibles[title.titleId.ToString()] == "incompatible")
+                            {
+                                itemWidthWithMargin_i = Draw_Picture_Game(Jsonresponse.titles[i], count_i, newline_i, Panel_inCompatible, itemWidth, itemWidthWithMargin_i, itemCountPerRow);
+                                count_i++;
+                                continue;
+                            }
+                            else
+                            {
+                                itemWidthWithMargin = Draw_Picture_Game(Jsonresponse.titles[i], count, newline, Panel_Compatible, itemWidth, itemWidthWithMargin, itemCountPerRow);
+                                count++;
+                            }
+                        }
+                        else
+                        {
+                            itemWidthWithMargin = Draw_Picture_Game(Jsonresponse.titles[i], count, newline, Panel_Compatible, itemWidth, itemWidthWithMargin, itemCountPerRow);
+                            count++;
+
+                            /*??? AGAIN
+                            line += Jsonresponse.titles[i].modernTitleId + ","
+                            + Jsonresponse.titles[i].name + ","
+                            + "compatible"
+                            //+ Jsonresponse.titles[i].displayImage.ToString()
+                            + "\n";*/
+                        }
+
+                        //End New
+                        if (i == 10) break;
                     }
-                    line += Jsonresponse.titles[i].modernTitleId + ","
-                        + Jsonresponse.titles[i].name + ","
-                        + "compatible"
-                        //+ Jsonresponse.titles[i].displayImage.ToString()
-                        + "\n";
                 }
-                SaveFileGameList(line);
+                /*??? AGAIN if (line != "")
+                    SaveFileGameList(line);*/
             }
             catch (HttpRequestException ex)
             {
@@ -345,6 +415,53 @@ namespace Xbox_Achievement_Unlocker
                     MessageBox.Show("Couldnt find xauth. Go click the FuckyWucky Fixer button until this doesn't happen.", "401 Unauthorised");
                 else
                     MessageBox.Show("something did a fucky wucky and I dont have a specific message for the error code", "fucky wucky");
+            }
+        }
+        private void RenameFile(string sourceFilename, string destinationFilename)
+        {
+            try
+            {
+                if (File.Exists(destinationFilename))
+                {
+                    File.Delete(destinationFilename);
+                }
+                File.Copy(sourceFilename, destinationFilename);
+                File.Delete(sourceFilename);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error rename File");
+            }
+        }
+        private bool checkFileExist(string path)
+        {
+            if (File.Exists(path))
+                return true;
+            return false;
+        }
+        private void Load_Incompatibility_Games_Data(string path)
+        {
+            //PENSAR MEJOR EL TEMA DE COMO COJONES VAS A MANTENER LOS ARCHIVOS BIEN GUARDADOS!
+            gamesCompatibles = new Dictionary<string, string>();
+            String line;
+            try
+            {
+                //Pass the file path and file name to the StreamReader constructor
+                StreamReader sr = new(path);
+                //Read the first line of text
+                line = sr.ReadLine();
+                while (line != null && line != "")
+                {
+                    string[] row = line.Split(",");
+                    if (row[0].ToString() != "")
+                        gamesCompatibles[row[0].ToString()] = row[2].ToString();
+                    line = sr.ReadLine();
+                }
+                sr.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(" Error loading incompatible game information");
             }
         }
 

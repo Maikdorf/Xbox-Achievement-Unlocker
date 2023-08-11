@@ -46,16 +46,19 @@ namespace Xbox_Achievement_Unlocker
             BTN_fixer = new System.Windows.Forms.Button();
             label2 = new System.Windows.Forms.Label();
             TXT_GameFilterTitle = new System.Windows.Forms.TextBox();
-            TXT_Xauth = new System.Windows.Forms.TextBox();
             BTN_StatsEditor = new System.Windows.Forms.Button();
             tabControl_Global = new System.Windows.Forms.TabControl();
             tab_compatible = new System.Windows.Forms.TabPage();
             tab_incompatible = new System.Windows.Forms.TabPage();
             Panel_inCompatible = new System.Windows.Forms.Panel();
             tab_others = new System.Windows.Forms.TabPage();
+            statusStrip1 = new System.Windows.Forms.StatusStrip();
+            TS_progressBar = new System.Windows.Forms.ToolStripStatusLabel();
+            PB_loading = new System.Windows.Forms.ToolStripProgressBar();
             tabControl_Global.SuspendLayout();
             tab_compatible.SuspendLayout();
             tab_incompatible.SuspendLayout();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // BGWorker
@@ -104,6 +107,7 @@ namespace Xbox_Achievement_Unlocker
             LBL_Gamertag.Size = new System.Drawing.Size(65, 15);
             LBL_Gamertag.TabIndex = 6;
             LBL_Gamertag.Text = "Gamertag: ";
+            LBL_Gamertag.Visible = false;
             // 
             // LBL_Gamerscore
             // 
@@ -114,6 +118,7 @@ namespace Xbox_Achievement_Unlocker
             LBL_Gamerscore.Size = new System.Drawing.Size(76, 15);
             LBL_Gamerscore.TabIndex = 7;
             LBL_Gamerscore.Text = "Gamerscore: ";
+            LBL_Gamerscore.Visible = false;
             // 
             // Panel_Compatible
             // 
@@ -121,7 +126,7 @@ namespace Xbox_Achievement_Unlocker
             Panel_Compatible.Dock = System.Windows.Forms.DockStyle.Fill;
             Panel_Compatible.Location = new System.Drawing.Point(3, 3);
             Panel_Compatible.Name = "Panel_Compatible";
-            Panel_Compatible.Size = new System.Drawing.Size(798, 293);
+            Panel_Compatible.Size = new System.Drawing.Size(798, 361);
             Panel_Compatible.TabIndex = 8;
             // 
             // BTN_SpoofGame
@@ -214,16 +219,6 @@ namespace Xbox_Achievement_Unlocker
             TXT_GameFilterTitle.Size = new System.Drawing.Size(99, 23);
             TXT_GameFilterTitle.TabIndex = 18;
             // 
-            // TXT_Xauth
-            // 
-            TXT_Xauth.BackColor = System.Drawing.SystemColors.Control;
-            TXT_Xauth.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            TXT_Xauth.Location = new System.Drawing.Point(55, 102);
-            TXT_Xauth.Name = "TXT_Xauth";
-            TXT_Xauth.Size = new System.Drawing.Size(570, 16);
-            TXT_Xauth.TabIndex = 19;
-            TXT_Xauth.TextChanged += TXT_Xauth_TextChanged;
-            // 
             // BTN_StatsEditor
             // 
             BTN_StatsEditor.Enabled = false;
@@ -243,7 +238,7 @@ namespace Xbox_Achievement_Unlocker
             tabControl_Global.Location = new System.Drawing.Point(4, 185);
             tabControl_Global.Name = "tabControl_Global";
             tabControl_Global.SelectedIndex = 0;
-            tabControl_Global.Size = new System.Drawing.Size(812, 327);
+            tabControl_Global.Size = new System.Drawing.Size(812, 395);
             tabControl_Global.TabIndex = 21;
             // 
             // tab_compatible
@@ -252,7 +247,7 @@ namespace Xbox_Achievement_Unlocker
             tab_compatible.Location = new System.Drawing.Point(4, 24);
             tab_compatible.Name = "tab_compatible";
             tab_compatible.Padding = new System.Windows.Forms.Padding(3);
-            tab_compatible.Size = new System.Drawing.Size(804, 299);
+            tab_compatible.Size = new System.Drawing.Size(804, 367);
             tab_compatible.TabIndex = 0;
             tab_compatible.Text = "Compatible";
             tab_compatible.UseVisualStyleBackColor = true;
@@ -263,7 +258,7 @@ namespace Xbox_Achievement_Unlocker
             tab_incompatible.Location = new System.Drawing.Point(4, 24);
             tab_incompatible.Name = "tab_incompatible";
             tab_incompatible.Padding = new System.Windows.Forms.Padding(3);
-            tab_incompatible.Size = new System.Drawing.Size(804, 299);
+            tab_incompatible.Size = new System.Drawing.Size(804, 367);
             tab_incompatible.TabIndex = 1;
             tab_incompatible.Text = "Incompatible";
             tab_incompatible.UseVisualStyleBackColor = true;
@@ -274,26 +269,46 @@ namespace Xbox_Achievement_Unlocker
             Panel_inCompatible.Dock = System.Windows.Forms.DockStyle.Fill;
             Panel_inCompatible.Location = new System.Drawing.Point(3, 3);
             Panel_inCompatible.Name = "Panel_inCompatible";
-            Panel_inCompatible.Size = new System.Drawing.Size(798, 293);
+            Panel_inCompatible.Size = new System.Drawing.Size(798, 361);
             Panel_inCompatible.TabIndex = 9;
             // 
             // tab_others
             // 
             tab_others.Location = new System.Drawing.Point(4, 24);
             tab_others.Name = "tab_others";
-            tab_others.Size = new System.Drawing.Size(804, 299);
+            tab_others.Size = new System.Drawing.Size(804, 367);
             tab_others.TabIndex = 2;
             tab_others.Text = "Others";
             tab_others.UseVisualStyleBackColor = true;
+            // 
+            // statusStrip1
+            // 
+            statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { TS_progressBar, PB_loading });
+            statusStrip1.Location = new System.Drawing.Point(0, 579);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new System.Drawing.Size(828, 22);
+            statusStrip1.TabIndex = 22;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // TS_progressBar
+            // 
+            TS_progressBar.Name = "TS_progressBar";
+            TS_progressBar.Size = new System.Drawing.Size(59, 17);
+            TS_progressBar.Text = "Loading...";
+            // 
+            // PB_loading
+            // 
+            PB_loading.Name = "PB_loading";
+            PB_loading.Size = new System.Drawing.Size(100, 16);
             // 
             // MainWindow
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(828, 512);
+            ClientSize = new System.Drawing.Size(828, 601);
+            Controls.Add(statusStrip1);
             Controls.Add(tabControl_Global);
             Controls.Add(BTN_StatsEditor);
-            Controls.Add(TXT_Xauth);
             Controls.Add(TXT_GameFilterTitle);
             Controls.Add(label2);
             Controls.Add(BTN_fixer);
@@ -314,6 +329,8 @@ namespace Xbox_Achievement_Unlocker
             tabControl_Global.ResumeLayout(false);
             tab_compatible.ResumeLayout(false);
             tab_incompatible.ResumeLayout(false);
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -336,13 +353,15 @@ namespace Xbox_Achievement_Unlocker
         private System.Windows.Forms.Button BTN_fixer;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TXT_GameFilterTitle;
-        private System.Windows.Forms.TextBox TXT_Xauth;
         private System.Windows.Forms.Button BTN_StatsEditor;
         private System.Windows.Forms.TabControl tabControl_Global;
         private System.Windows.Forms.TabPage tab_compatible;
         private System.Windows.Forms.TabPage tab_incompatible;
         private System.Windows.Forms.TabPage tab_others;
         private System.Windows.Forms.Panel Panel_inCompatible;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripProgressBar PB_loading;
+        private System.Windows.Forms.ToolStripStatusLabel TS_progressBar;
     }
 }
 
