@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing.Drawing2D;
+﻿using System.Windows.Forms;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Drawing.Drawing2D;
+using System.ComponentModel;
 
-namespace Xbox_Achievement_Unlocker.Controls
+namespace Xbox_Achievement_Unlocker.CustomControls
 {
-    internal class ToggleButton : CheckBox
+    public class ToggleButton : CheckBox
     {
         private Color onBackColor = Color.MediumSlateBlue;
         private Color onToggleColor = Color.WhiteSmoke;
@@ -139,9 +134,10 @@ namespace Xbox_Achievement_Unlocker.Controls
             if (this.Checked) //ON
             {
                 //Draw the control surface
-                if (solidStyle)
+                if (solidStyle) 
                     pevent.Graphics.FillPath(new SolidBrush(onBackColor), GetFigurePath());
-                else pevent.Graphics.DrawPath(new Pen(onBackColor, 2), GetFigurePath());
+                else 
+                    pevent.Graphics.DrawPath(new Pen(onBackColor, 2), GetFigurePath());
                 //Draw the toggle
                 pevent.Graphics.FillEllipse(new SolidBrush(onToggleColor),
                     new Rectangle(this.Width - this.Height + 1, 2, toggleSize, toggleSize));
@@ -151,10 +147,15 @@ namespace Xbox_Achievement_Unlocker.Controls
                 //Draw the control surface
                 if (solidStyle)
                     pevent.Graphics.FillPath(new SolidBrush(offBackColor), GetFigurePath());
-                else pevent.Graphics.DrawPath(new Pen(offBackColor, 2), GetFigurePath());
+                else 
+                    pevent.Graphics.DrawPath(new Pen(offBackColor, 2), GetFigurePath());
                 //Draw the toggle
                 pevent.Graphics.FillEllipse(new SolidBrush(offToggleColor),
                     new Rectangle(2, 2, toggleSize, toggleSize));
+            }
+            if (!this.Enabled) 
+            {
+                
             }
         }
     }

@@ -15,7 +15,7 @@ using Newtonsoft.Json.Linq;
 using System.Reflection.Emit;
 using System.Diagnostics;
 using System.Net;
-using Xbox_Achievement_Unlocker.Controls;
+using Xbox_Achievement_Unlocker.CustomControls;
 
 namespace Xbox_Achievement_Unlocker
 {
@@ -192,15 +192,15 @@ namespace Xbox_Achievement_Unlocker
         public void calculateTimeAchievements()
         {
             string[] time = timeTrueAchiv.Replace(" hours", "").Replace(" hour", "").Split("-");
-            time[1] = (time[1] != null && time[1]!="")? time[1].Replace(".", ","): "1";
+            time[1] = (time[1] != null && time[1] != "") ? time[1].Replace(".", ",") : "1";
             double min = Double.Parse(time[1]) * 60;
             timeAchivements = (int)Math.Truncate((min / countAchivements) + 1);
             timerLeft = timeAchivements;
             TimeSlapsed = CountAchived * timeAchivements;
             int hours = ((TimeSlapsed - TimeSlapsed % 60) / 60);
-            string hoursText = (hours < 10)? "0"+Convert.ToString(hours) : Convert.ToString(hours);
-            string secondsText = ((TimeSlapsed - hours * 60) < 10) ? "0" + Convert.ToString((TimeSlapsed - hours * 60)) : Convert.ToString((TimeSlapsed - hours * 60));
-            LBL_TimeSlapsed.Text = hoursText + ":" + secondsText;
+            string hoursText = (hours < 10) ? "0" + Convert.ToString(hours) : Convert.ToString(hours);
+            string minutesText = ((TimeSlapsed - hours * 60) < 10) ? "0" + Convert.ToString((TimeSlapsed - hours * 60)) : Convert.ToString((TimeSlapsed - hours * 60));
+            LBL_TimeSlapsed.Text = "Time Lapsed Aprox: " + hoursText + ":" + minutesText + ":00";
             LBL_TimeAchievements.Text = Convert.ToString(timeAchivements) + " Minutes";
         }
 

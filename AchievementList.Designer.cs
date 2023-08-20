@@ -50,7 +50,6 @@ namespace Xbox_Achievement_Unlocker
             GB_Spoofer = new System.Windows.Forms.GroupBox();
             LBL_TimeSlapsed = new System.Windows.Forms.Label();
             LBL_TimeAchievements = new System.Windows.Forms.Label();
-            CHB_Automatic = new System.Windows.Forms.CheckBox();
             gameImage = new System.Windows.Forms.PictureBox();
             panel4 = new System.Windows.Forms.Panel();
             LBL_Timer = new System.Windows.Forms.Label();
@@ -62,6 +61,8 @@ namespace Xbox_Achievement_Unlocker
             panel7 = new System.Windows.Forms.Panel();
             panel5 = new System.Windows.Forms.Panel();
             SpoofingTime = new System.Windows.Forms.Timer(components);
+            CHB_Automatic = new CustomControls.ToggleButton();
+            label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)DGV_AchievementList).BeginInit();
             panel1.SuspendLayout();
             GB_Spoofer.SuspendLayout();
@@ -274,9 +275,10 @@ namespace Xbox_Achievement_Unlocker
             // GB_Spoofer
             // 
             GB_Spoofer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
+            GB_Spoofer.Controls.Add(label2);
+            GB_Spoofer.Controls.Add(CHB_Automatic);
             GB_Spoofer.Controls.Add(LBL_TimeSlapsed);
             GB_Spoofer.Controls.Add(LBL_TimeAchievements);
-            GB_Spoofer.Controls.Add(CHB_Automatic);
             GB_Spoofer.Controls.Add(gameImage);
             GB_Spoofer.Controls.Add(panel4);
             GB_Spoofer.Controls.Add(BTN_SpoofStop);
@@ -305,17 +307,6 @@ namespace Xbox_Achievement_Unlocker
             LBL_TimeAchievements.Size = new System.Drawing.Size(65, 15);
             LBL_TimeAchievements.TabIndex = 10;
             LBL_TimeAchievements.Text = "99 Minutes";
-            // 
-            // CHB_Automatic
-            // 
-            CHB_Automatic.AutoSize = true;
-            CHB_Automatic.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            CHB_Automatic.Location = new System.Drawing.Point(7, 293);
-            CHB_Automatic.Name = "CHB_Automatic";
-            CHB_Automatic.Size = new System.Drawing.Size(218, 49);
-            CHB_Automatic.TabIndex = 9;
-            CHB_Automatic.Text = "Automatic ?";
-            CHB_Automatic.UseVisualStyleBackColor = true;
             // 
             // gameImage
             // 
@@ -424,6 +415,30 @@ namespace Xbox_Achievement_Unlocker
             SpoofingTime.Interval = 1000;
             SpoofingTime.Tick += SpoofingTime_Tick;
             // 
+            // CHB_Automatic
+            // 
+            CHB_Automatic.AutoSize = true;
+            CHB_Automatic.Location = new System.Drawing.Point(7, 323);
+            CHB_Automatic.MinimumSize = new System.Drawing.Size(45, 22);
+            CHB_Automatic.Name = "CHB_Automatic";
+            CHB_Automatic.OffBackColor = System.Drawing.Color.Gray;
+            CHB_Automatic.OffToggleColor = System.Drawing.Color.Gainsboro;
+            CHB_Automatic.OnBackColor = System.Drawing.Color.MediumSlateBlue;
+            CHB_Automatic.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            CHB_Automatic.Size = new System.Drawing.Size(45, 22);
+            CHB_Automatic.TabIndex = 12;
+            CHB_Automatic.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label2.Location = new System.Drawing.Point(58, 318);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(137, 30);
+            label2.TabIndex = 13;
+            label2.Text = "Auto Unlock";
+            // 
             // AchievementList
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -486,7 +501,8 @@ namespace Xbox_Achievement_Unlocker
         private System.Windows.Forms.DataGridViewTextBoxColumn CL_Stats;
         private System.Windows.Forms.DataGridViewTextBoxColumn CL_ID;
         private System.Windows.Forms.Label LBL_TimeAchievements;
-        private System.Windows.Forms.CheckBox CHB_Automatic;
         private System.Windows.Forms.Label LBL_TimeSlapsed;
+        private System.Windows.Forms.Label label2;
+        private CustomControls.ToggleButton CHB_Automatic;
     }
 }
