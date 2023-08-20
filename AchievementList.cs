@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 using System.Reflection.Emit;
 using System.Diagnostics;
 using System.Net;
+using Xbox_Achievement_Unlocker.Controls;
 
 namespace Xbox_Achievement_Unlocker
 {
@@ -34,9 +35,9 @@ namespace Xbox_Achievement_Unlocker
         };
         HttpClient client = new HttpClient(handler);
         bool active;
-        string SCID;
-        string TitleID, TitleName;
-        string responseString, urlPicture_global_temp;
+        int timeAchivements, countAchivements, timerLeft, TimeSlapsed,
+            CountAchived = 0, CountNotAchived = 0, numRowChecked = -1, timerSendSpoof = 60;
+        string SCID, TitleID, TitleName, responseString, urlPicture_global_temp, timeTrueAchiv;
         List<string> UnlockableAchievements = new List<string>();
 
 
@@ -89,10 +90,10 @@ namespace Xbox_Achievement_Unlocker
         {
             try
             {
-                string[] scapeCharacter = { "'", "®", "™", "’", ":", "(", ")", "-" };
+                string[] scapeCharacter = { "'", "®", "™", "’", ":", "(", ")", "-", "!" };
                 foreach (var character in scapeCharacter)
                     nameGame = nameGame.Replace(character, "");
-                
+
                 nameGame = nameGame.Replace(" ", "-");
                 HtmlAgilityPack.HtmlWeb web = new();
                 HtmlAgilityPack.HtmlDocument doc = web.Load("https://www.trueachievements.com/game/" + nameGame + "/completiontime");
@@ -134,10 +135,10 @@ namespace Xbox_Achievement_Unlocker
                 LBL_TID_UIXD.Text = TitleID;
                 int achieved;
                 lblLink_completationTime.Visible = true;
-                lblLink_completationTime.Text = "Completion Time: " + statsTrueAchivements(TitleName);
+
                 for (int i = 0; i < Jsonresponse.achievements.Count; i++)
                 {
-                    if (Jsonresponse.achievements[i].progression.requirements.Count != 0 && 
+                    if (Jsonresponse.achievements[i].progression.requirements.Count != 0 &&
                         Jsonresponse.achievements[i].progression.requirements[0].id != "00000000-0000-0000-0000-000000000000")
                     {
                         InitRainbow();
@@ -145,8 +146,17 @@ namespace Xbox_Achievement_Unlocker
                         label1.Visible = true;
                         StartFlashing();
                         break;
-                    }                        
-                    achieved = (Jsonresponse.achievements[i].progressState.ToString() == "Achieved") ? 2 : 0;
+                    }
+
+                    if (Jsonresponse.achievements[i].progressState.ToString() == "Achieved")
+                    {
+                        CountAchived++;
+                        achieved = 2;
+                    }
+                    else
+                    {
+                        achieved = 0;
+                    }
                     try
                     {
                         DGV_AchievementList.Rows.Add(
@@ -169,8 +179,31 @@ namespace Xbox_Achievement_Unlocker
                         );
                     }
                 }
+                timeTrueAchiv = statsTrueAchivements(TitleName);
+                countAchivements = Jsonresponse.achievements.Count;
+                if (timeTrueAchiv != "No Data!" && timeTrueAchiv != "Error Data!" && timeTrueAchiv != "" && timeTrueAchiv != null)
+                {
+                    calculateTimeAchievements();
+                }
+                lblLink_completationTime.Text = "Completion Time: " + timeTrueAchiv;
             }
         }
+
+        public void calculateTimeAchievements()
+        {
+            string[] time = timeTrueAchiv.Replace(" hours", "").Replace(" hour", "").Split("-");
+            time[1] = (time[1] != null && time[1]!="")? time[1].Replace(".", ","): "1";
+            double min = Double.Parse(time[1]) * 60;
+            timeAchivements = (int)Math.Truncate((min / countAchivements) + 1);
+            timerLeft = timeAchivements;
+            TimeSlapsed = CountAchived * timeAchivements;
+            int hours = ((TimeSlapsed - TimeSlapsed % 60) / 60);
+            string hoursText = (hours < 10)? "0"+Convert.ToString(hours) : Convert.ToString(hours);
+            string secondsText = ((TimeSlapsed - hours * 60) < 10) ? "0" + Convert.ToString((TimeSlapsed - hours * 60)) : Convert.ToString((TimeSlapsed - hours * 60));
+            LBL_TimeSlapsed.Text = hoursText + ":" + secondsText;
+            LBL_TimeAchievements.Text = Convert.ToString(timeAchivements) + " Minutes";
+        }
+
         void SelectAchievement(object sender, EventArgs e)
         {
             CheckBox SelectedAchievement = (sender as CheckBox);
@@ -353,48 +386,9 @@ namespace Xbox_Achievement_Unlocker
 
             BTN_Spoof.Enabled = false;
             BTN_SpoofStop.Enabled = true;
-            string uuiGame = TitleID;
-            Task.Run(() => Spoofing(uuiGame));
-        }
-
-        public async Task Spoofing(string uuiGame)
-        {
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("x-xbl-contract-version", "3");
-            client.DefaultRequestHeaders.Add("accept", "application/json");
-            client.DefaultRequestHeaders.Add("Authorization", MainWindow.xauthtoken);
-
-            var requestbody = new StringContent("{\"titles\":[{\"expiration\":600,\"id\":" + uuiGame + ",\"state\":\"active\",\"sandbox\":\"RETAIL\"}]}", encoding: Encoding.UTF8, "application/json");
+            CHB_Automatic.Enabled = false;
+            active = true;
             timer.Start();
-            active = true;
-            while (active)
-            {
-                if (!active) break;
-                await client.PostAsync("https://presence-heartbeat.xboxlive.com/users/xuid(" + MainWindow.xuid + ")/devices/current", requestbody);
-                Thread.Sleep(1000);
-            }
-            var i = 0;
-            active = true;
-            while (active)
-            {
-                if (i == 60)
-                {
-                    await client.PostAsync("https://presence-heartbeat.xboxlive.com/users/xuid(" + MainWindow.xuid + ")/devices/current", requestbody);
-                    i = 0;
-                }
-                else
-                {
-                    if (!active)
-                    {
-                        break;
-                    }
-                    i++;
-                }
-                Thread.Sleep(1000);
-
-            }
-            BTN_Spoof.Invoke(new Action(() => BTN_Spoof.Enabled = true));
-            BTN_SpoofStop.Invoke(new Action(() => BTN_SpoofStop.Enabled = false));
         }
 
         private void BTN_SpoofStop_Click(object sender, EventArgs e)
@@ -402,15 +396,71 @@ namespace Xbox_Achievement_Unlocker
             active = false;
             timer.Stop();
             timer.Reset();
+            BTN_SpoofStop.Enabled = false;
+            BTN_Spoof.Enabled = true;
+            CHB_Automatic.Enabled = true;
             LBL_Timer.Text = "00:00:00";
+        }
+
+        public void ShortByPercent()
+        {
+            if (numRowChecked == -1)
+            {
+                DGV_AchievementList.Sort(DGV_AchievementList.Columns["CL_Rarity"], ListSortDirection.Descending);
+                for (var i = 0; i < DGV_AchievementList.Rows.Count; i++)
+                {
+                    if ((int)DGV_AchievementList.Rows[i].Cells[0].Value == 0)
+                    {
+                        DGV_AchievementList.Rows[i].Cells[0].Value = 2;
+                        AchievementIDs.Add(DGV_AchievementList.Rows[i].Cells["CL_ID"].Value.ToString());
+                        numRowChecked = i + 1;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                DGV_AchievementList.Rows[numRowChecked].Cells[0].Value = 2;
+                AchievementIDs.Add(DGV_AchievementList.Rows[numRowChecked].Cells["CL_ID"].Value.ToString());
+                numRowChecked++;
+            }
+            BTN_Unlock_Click(new object(), new EventArgs());
         }
 
         private void SpoofingTime_Tick(object sender, EventArgs e)
         {
+            if (!active) return;
             LBL_Timer.Text = string.Format("{0:hh\\:mm\\:ss}", timer.Elapsed);
+            //LBL_TimeAchievements.Text = Convert.ToString( Math.Truncate((((decimal)timeAchivements * 60) - timerLeft)/60)) + " Minutes"; //Tiempo restante
+            if (CHB_Automatic.Checked && timerLeft == (timeAchivements * 60))
+            {
+                ShortByPercent();
+                timerLeft = 0;
+            }
+
+            if (timerSendSpoof == 60)
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("x-xbl-contract-version", "3");
+                client.DefaultRequestHeaders.Add("accept", "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", MainWindow.xauthtoken);
+
+                var requestbody = new StringContent("{\"titles\":[{\"expiration\":600,\"id\":" + TitleID + ",\"state\":\"active\",\"sandbox\":\"RETAIL\"}]}", encoding: Encoding.UTF8, "application/json");
+                client.PostAsync("https://presence-heartbeat.xboxlive.com/users/xuid(" + MainWindow.xuid + ")/devices/current", requestbody);
+                timerSendSpoof = 0;
+            }
+
+            timerLeft++;
+            timerSendSpoof++;
         }
         #endregion
 
 
+        private void AchievementList_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            active = false;
+            timer.Stop();
+            timer.Reset();
+        }
     }
 }

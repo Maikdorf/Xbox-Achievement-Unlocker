@@ -34,6 +34,12 @@ namespace Xbox_Achievement_Unlocker
             BTN_Unlock = new System.Windows.Forms.Button();
             BTN_UnlockAll = new System.Windows.Forms.Button();
             DGV_AchievementList = new System.Windows.Forms.DataGridView();
+            CL_Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            CL_Rarity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            CL_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            CL_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            CL_Stats = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            CL_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Check_UnlockAll = new System.Windows.Forms.CheckBox();
             BTN_ALRefresh = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
@@ -41,7 +47,10 @@ namespace Xbox_Achievement_Unlocker
             LBL_TID_UIXD = new System.Windows.Forms.Label();
             LBL_TID = new System.Windows.Forms.Label();
             lblLink_completationTime = new System.Windows.Forms.LinkLabel();
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            GB_Spoofer = new System.Windows.Forms.GroupBox();
+            LBL_TimeSlapsed = new System.Windows.Forms.Label();
+            LBL_TimeAchievements = new System.Windows.Forms.Label();
+            CHB_Automatic = new System.Windows.Forms.CheckBox();
             gameImage = new System.Windows.Forms.PictureBox();
             panel4 = new System.Windows.Forms.Panel();
             LBL_Timer = new System.Windows.Forms.Label();
@@ -53,15 +62,9 @@ namespace Xbox_Achievement_Unlocker
             panel7 = new System.Windows.Forms.Panel();
             panel5 = new System.Windows.Forms.Panel();
             SpoofingTime = new System.Windows.Forms.Timer(components);
-            dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            CL_Rarity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            CL_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            CL_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            CL_Stats = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            CL_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)DGV_AchievementList).BeginInit();
             panel1.SuspendLayout();
-            groupBox1.SuspendLayout();
+            GB_Spoofer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gameImage).BeginInit();
             panel4.SuspendLayout();
             panel6.SuspendLayout();
@@ -104,7 +107,7 @@ namespace Xbox_Achievement_Unlocker
             DGV_AchievementList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             DGV_AchievementList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             DGV_AchievementList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DGV_AchievementList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { dataGridViewCheckBoxColumn1, CL_Rarity, CL_Name, CL_Description, CL_Stats, CL_ID });
+            DGV_AchievementList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { CL_Check, CL_Rarity, CL_Name, CL_Description, CL_Stats, CL_ID });
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -131,6 +134,63 @@ namespace Xbox_Achievement_Unlocker
             DGV_AchievementList.Size = new System.Drawing.Size(652, 463);
             DGV_AchievementList.TabIndex = 1;
             DGV_AchievementList.CellClick += dataGridView1_CellClick;
+            // 
+            // CL_Check
+            // 
+            CL_Check.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            CL_Check.FalseValue = "0";
+            CL_Check.FillWeight = 70F;
+            CL_Check.HeaderText = "";
+            CL_Check.IndeterminateValue = "2";
+            CL_Check.MinimumWidth = 20;
+            CL_Check.Name = "CL_Check";
+            CL_Check.ReadOnly = true;
+            CL_Check.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            CL_Check.TrueValue = "1";
+            // 
+            // CL_Rarity
+            // 
+            CL_Rarity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            CL_Rarity.HeaderText = "%";
+            CL_Rarity.MinimumWidth = 20;
+            CL_Rarity.Name = "CL_Rarity";
+            CL_Rarity.ReadOnly = true;
+            // 
+            // CL_Name
+            // 
+            CL_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            CL_Name.FillWeight = 150F;
+            CL_Name.HeaderText = "Name";
+            CL_Name.MinimumWidth = 50;
+            CL_Name.Name = "CL_Name";
+            CL_Name.ReadOnly = true;
+            // 
+            // CL_Description
+            // 
+            CL_Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            CL_Description.FillWeight = 300F;
+            CL_Description.HeaderText = "Description";
+            CL_Description.MinimumWidth = 100;
+            CL_Description.Name = "CL_Description";
+            CL_Description.ReadOnly = true;
+            // 
+            // CL_Stats
+            // 
+            CL_Stats.FillWeight = 300F;
+            CL_Stats.HeaderText = "Stats";
+            CL_Stats.MinimumWidth = 100;
+            CL_Stats.Name = "CL_Stats";
+            CL_Stats.ReadOnly = true;
+            CL_Stats.Width = 200;
+            // 
+            // CL_ID
+            // 
+            CL_ID.FillWeight = 40F;
+            CL_ID.HeaderText = "ID";
+            CL_ID.MinimumWidth = 6;
+            CL_ID.Name = "CL_ID";
+            CL_ID.ReadOnly = true;
+            CL_ID.Width = 20;
             // 
             // Check_UnlockAll
             // 
@@ -211,18 +271,51 @@ namespace Xbox_Achievement_Unlocker
             lblLink_completationTime.Text = "Completation Time: 4 - 6h";
             lblLink_completationTime.Visible = false;
             // 
-            // groupBox1
+            // GB_Spoofer
             // 
-            groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
-            groupBox1.Controls.Add(gameImage);
-            groupBox1.Controls.Add(panel4);
-            groupBox1.Controls.Add(BTN_SpoofStop);
-            groupBox1.Controls.Add(BTN_Spoof);
-            groupBox1.Location = new System.Drawing.Point(14, 18);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(227, 415);
-            groupBox1.TabIndex = 10;
-            groupBox1.TabStop = false;
+            GB_Spoofer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
+            GB_Spoofer.Controls.Add(LBL_TimeSlapsed);
+            GB_Spoofer.Controls.Add(LBL_TimeAchievements);
+            GB_Spoofer.Controls.Add(CHB_Automatic);
+            GB_Spoofer.Controls.Add(gameImage);
+            GB_Spoofer.Controls.Add(panel4);
+            GB_Spoofer.Controls.Add(BTN_SpoofStop);
+            GB_Spoofer.Controls.Add(BTN_Spoof);
+            GB_Spoofer.Location = new System.Drawing.Point(14, 18);
+            GB_Spoofer.Name = "GB_Spoofer";
+            GB_Spoofer.Size = new System.Drawing.Size(227, 415);
+            GB_Spoofer.TabIndex = 10;
+            GB_Spoofer.TabStop = false;
+            // 
+            // LBL_TimeSlapsed
+            // 
+            LBL_TimeSlapsed.AutoSize = true;
+            LBL_TimeSlapsed.Dock = System.Windows.Forms.DockStyle.Bottom;
+            LBL_TimeSlapsed.Location = new System.Drawing.Point(3, 397);
+            LBL_TimeSlapsed.Name = "LBL_TimeSlapsed";
+            LBL_TimeSlapsed.Size = new System.Drawing.Size(49, 15);
+            LBL_TimeSlapsed.TabIndex = 11;
+            LBL_TimeSlapsed.Text = "00:00:00";
+            // 
+            // LBL_TimeAchievements
+            // 
+            LBL_TimeAchievements.AutoSize = true;
+            LBL_TimeAchievements.Location = new System.Drawing.Point(80, 293);
+            LBL_TimeAchievements.Name = "LBL_TimeAchievements";
+            LBL_TimeAchievements.Size = new System.Drawing.Size(65, 15);
+            LBL_TimeAchievements.TabIndex = 10;
+            LBL_TimeAchievements.Text = "99 Minutes";
+            // 
+            // CHB_Automatic
+            // 
+            CHB_Automatic.AutoSize = true;
+            CHB_Automatic.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            CHB_Automatic.Location = new System.Drawing.Point(7, 293);
+            CHB_Automatic.Name = "CHB_Automatic";
+            CHB_Automatic.Size = new System.Drawing.Size(218, 49);
+            CHB_Automatic.TabIndex = 9;
+            CHB_Automatic.Text = "Automatic ?";
+            CHB_Automatic.UseVisualStyleBackColor = true;
             // 
             // gameImage
             // 
@@ -318,7 +411,7 @@ namespace Xbox_Achievement_Unlocker
             // panel5
             // 
             panel5.Controls.Add(panel6);
-            panel5.Controls.Add(groupBox1);
+            panel5.Controls.Add(GB_Spoofer);
             panel5.Dock = System.Windows.Forms.DockStyle.Right;
             panel5.Location = new System.Drawing.Point(652, 44);
             panel5.Name = "panel5";
@@ -328,64 +421,8 @@ namespace Xbox_Achievement_Unlocker
             // SpoofingTime
             // 
             SpoofingTime.Enabled = true;
+            SpoofingTime.Interval = 1000;
             SpoofingTime.Tick += SpoofingTime_Tick;
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            dataGridViewCheckBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCheckBoxColumn1.FalseValue = "0";
-            dataGridViewCheckBoxColumn1.FillWeight = 70F;
-            dataGridViewCheckBoxColumn1.HeaderText = "";
-            dataGridViewCheckBoxColumn1.IndeterminateValue = "2";
-            dataGridViewCheckBoxColumn1.MinimumWidth = 20;
-            dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            dataGridViewCheckBoxColumn1.ReadOnly = true;
-            dataGridViewCheckBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            dataGridViewCheckBoxColumn1.TrueValue = "1";
-            // 
-            // CL_Rarity
-            // 
-            CL_Rarity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            CL_Rarity.HeaderText = "%";
-            CL_Rarity.MinimumWidth = 20;
-            CL_Rarity.Name = "CL_Rarity";
-            CL_Rarity.ReadOnly = true;
-            // 
-            // CL_Name
-            // 
-            CL_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            CL_Name.FillWeight = 150F;
-            CL_Name.HeaderText = "Name";
-            CL_Name.MinimumWidth = 50;
-            CL_Name.Name = "CL_Name";
-            CL_Name.ReadOnly = true;
-            // 
-            // CL_Description
-            // 
-            CL_Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            CL_Description.FillWeight = 300F;
-            CL_Description.HeaderText = "Description";
-            CL_Description.MinimumWidth = 100;
-            CL_Description.Name = "CL_Description";
-            CL_Description.ReadOnly = true;
-            // 
-            // CL_Stats
-            // 
-            CL_Stats.FillWeight = 300F;
-            CL_Stats.HeaderText = "Stats";
-            CL_Stats.MinimumWidth = 100;
-            CL_Stats.Name = "CL_Stats";
-            CL_Stats.ReadOnly = true;
-            CL_Stats.Width = 200;
-            // 
-            // CL_ID
-            // 
-            CL_ID.FillWeight = 40F;
-            CL_ID.HeaderText = "ID";
-            CL_ID.MinimumWidth = 6;
-            CL_ID.Name = "CL_ID";
-            CL_ID.ReadOnly = true;
-            CL_ID.Width = 20;
             // 
             // AchievementList
             // 
@@ -399,11 +436,13 @@ namespace Xbox_Achievement_Unlocker
             MinimumSize = new System.Drawing.Size(920, 600);
             Name = "AchievementList";
             Text = "Monster Hunter (windows version)";
+            FormClosed += AchievementList_FormClosed;
             KeyDown += AchievementList_KeyDown;
             ((System.ComponentModel.ISupportInitialize)DGV_AchievementList).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            groupBox1.ResumeLayout(false);
+            GB_Spoofer.ResumeLayout(false);
+            GB_Spoofer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gameImage).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
@@ -427,7 +466,7 @@ namespace Xbox_Achievement_Unlocker
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox GB_Spoofer;
         private System.Windows.Forms.PictureBox gameImage;
         private System.Windows.Forms.Label LBL_TID;
         private System.Windows.Forms.Panel panel4;
@@ -440,11 +479,14 @@ namespace Xbox_Achievement_Unlocker
         private System.Windows.Forms.Timer SpoofingTime;
         private System.Windows.Forms.Label LBL_Timer;
         private System.Windows.Forms.Label LBL_TID_UIXD;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CL_Check;
         private System.Windows.Forms.DataGridViewTextBoxColumn CL_Rarity;
         private System.Windows.Forms.DataGridViewTextBoxColumn CL_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn CL_Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn CL_Stats;
         private System.Windows.Forms.DataGridViewTextBoxColumn CL_ID;
+        private System.Windows.Forms.Label LBL_TimeAchievements;
+        private System.Windows.Forms.CheckBox CHB_Automatic;
+        private System.Windows.Forms.Label LBL_TimeSlapsed;
     }
 }
