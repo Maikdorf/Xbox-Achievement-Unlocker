@@ -214,10 +214,25 @@ namespace Xbox_Achievement_Unlocker
 
                 /* ::TODO::
                 implement 1 single form but if this with the game spoofer take a message box
-                Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "AchievementList").SingleOrDefault<Form>();
-                if (exist != null)
-                    ALForm.Close();
                 */
+                Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "AchievementList").SingleOrDefault<Form>();
+                
+                if (exist != null && ALForm.SpoofActive)
+                {
+                    DialogResult CancelSpoof = MessageBox.Show("", "", MessageBoxButtons.YesNo);
+                    switch (CancelSpoof)
+                    {
+                        case DialogResult.Yes:
+
+                            break;
+                        case DialogResult.No:
+
+                            break;
+
+                    }
+                    //ALForm.Close();
+                }
+                
                 ALForm = new AchievementList();
                 ALForm.Show();
                 ALForm.PopulateAchievementList(responseString, SelectedGame.ImageLocation.ToString());
@@ -308,11 +323,18 @@ namespace Xbox_Achievement_Unlocker
                     newline = 0,
                     itemWidthWithMargin = 0,
                     count = 0;
+                bool injectGame = true;
 
                 dynamic title;
                 dataTitles = Jsonresponse;
                 for (int i = 0; i < Jsonresponse.titles.Count; i++)
                 {
+                    if (injectGame && i == 1)
+                    {
+                        i = 0;
+                        injectGame = false;
+                    }
+
                     title = Jsonresponse.titles[i];
                     devices = title.devices.ToString();
                     titles = title.name.ToString() + " " + title.titleId.ToString();
@@ -337,7 +359,6 @@ namespace Xbox_Achievement_Unlocker
                         GameImage.Name = Jsonresponse.titles[i].titleId.ToString();
                         GameImage.Cursor = Cursors.Hand;
                         GameImage.Click += new EventHandler(this.LoadAchievementList);
-                        Panel_Recents.Controls.Add(GameImage);
                         //Create the dynamic TextBox.
                         TextBox textbox = new TextBox();
                         textbox.Location = new Point(itemWidthWithMargin * count, 150 + newline);
@@ -347,7 +368,6 @@ namespace Xbox_Achievement_Unlocker
                         textbox.ReadOnly = true;
                         textbox.Name = "txt_" + (count + 1);
                         textbox.Text = Jsonresponse.titles[i].name;
-                        Panel_Recents.Controls.Add(textbox);
                         TextBox titleidBox = new TextBox();
                         titleidBox.Location = new Point(itemWidthWithMargin * count, 170 + newline);
                         titleidBox.Size = new Size(itemWidth, 20);
@@ -355,6 +375,23 @@ namespace Xbox_Achievement_Unlocker
                         titleidBox.ReadOnly = true;
                         titleidBox.Name = "txt_" + Jsonresponse.titles[i].modernTitleId;
                         titleidBox.Text = "TitleID: " + Jsonresponse.titles[i].modernTitleId;
+                        if (injectGame)
+                        {
+                            string urlImg = Jsonresponse.titles[i].displayImage.ToString();
+                            GameImage.ImageLocation = "";
+                            GameImage.Image = Properties.Resources.New_Game;
+                            GameImage.Name = Jsonresponse.titles[i].titleId.ToString();
+                            GameImage.Click -= new EventHandler(this.LoadAchievementList);
+
+                            textbox.Text = "Inject Game";
+
+                            titleidBox.Name = "txt_" + Jsonresponse.titles[i].modernTitleId;
+                            titleidBox.BorderStyle = BorderStyle.Fixed3D;
+                            titleidBox.Text = "TitleID: ";
+                            titleidBox.ReadOnly = false;
+                        }
+                        Panel_Recents.Controls.Add(GameImage);
+                        Panel_Recents.Controls.Add(textbox);
                         Panel_Recents.Controls.Add(titleidBox);
 
                         if (count == 0)

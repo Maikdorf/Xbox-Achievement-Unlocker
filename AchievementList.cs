@@ -16,6 +16,8 @@ using System.Reflection.Emit;
 using System.Diagnostics;
 using System.Net;
 using Xbox_Achievement_Unlocker.CustomControls;
+using System.Runtime.InteropServices;
+using System.Security.Policy;
 
 namespace Xbox_Achievement_Unlocker
 {
@@ -29,12 +31,12 @@ namespace Xbox_Achievement_Unlocker
         //string currentSystemLanguage = System.Globalization.CultureInfo.CurrentCulture.Name;
         string currentSystemLanguage = "en-US";
         public List<string> AchievementIDs = new List<string>();
+        private bool spoofActive = false;
         static HttpClientHandler handler = new HttpClientHandler()
         {
             AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
         };
         HttpClient client = new HttpClient(handler);
-        bool active;
         int timeAchivements, countAchivements, timerLeft, TimeSlapsed,
             CountAchived = 0, CountNotAchived = 0, numRowChecked = -1, timerSendSpoof = 60;
         string SCID, TitleID, TitleName, responseString, urlPicture_global_temp, timeTrueAchiv;
@@ -44,6 +46,9 @@ namespace Xbox_Achievement_Unlocker
         #region bright warning shit for stupid people
         private const int RainbowLength = 360;
         private readonly Color[] Rainbow = new Color[RainbowLength];
+
+        public bool SpoofActive { get => spoofActive; set => spoofActive = value; }
+
         private void InitRainbow()
         {
             for (int i = 0; i < RainbowLength; i++)
@@ -387,13 +392,16 @@ namespace Xbox_Achievement_Unlocker
             BTN_Spoof.Enabled = false;
             BTN_SpoofStop.Enabled = true;
             CHB_Automatic.Enabled = false;
-            active = true;
+            SpoofingTime.Enabled = true;
+            SpoofActive = true;
             timer.Start();
         }
 
         private void BTN_SpoofStop_Click(object sender, EventArgs e)
         {
-            active = false;
+            
+            SpoofingTime.Enabled = false;
+            SpoofActive = false;
             timer.Stop();
             timer.Reset();
             BTN_SpoofStop.Enabled = false;
@@ -429,7 +437,6 @@ namespace Xbox_Achievement_Unlocker
 
         private void SpoofingTime_Tick(object sender, EventArgs e)
         {
-            if (!active) return;
             LBL_Timer.Text = string.Format("{0:hh\\:mm\\:ss}", timer.Elapsed);
             //LBL_TimeAchievements.Text = Convert.ToString( Math.Truncate((((decimal)timeAchivements * 60) - timerLeft)/60)) + " Minutes"; //Tiempo restante
             if (CHB_Automatic.Checked && timerLeft == (timeAchivements * 60))
@@ -458,9 +465,46 @@ namespace Xbox_Achievement_Unlocker
 
         private void AchievementList_FormClosed(object sender, FormClosedEventArgs e)
         {
-            active = false;
-            timer.Stop();
-            timer.Reset();
+            if (SpoofingTime.Enabled)
+            {
+                DialogResult CancelSpoof = MessageBox.Show("If you close this window the spoof process will stop!", "Do you want to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (CancelSpoof == DialogResult.Yes)
+                {
+                    SpoofingTime.Enabled = false;
+                    timer.Stop();
+                    timer.Reset();
+                }else
+                    //e.Cancel = true ;
+            }
+
+        }
+
+        private void lblLink_completationTime_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            String url = e.Link.LinkData.ToString();
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }
