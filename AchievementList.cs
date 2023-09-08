@@ -30,7 +30,7 @@ namespace Xbox_Achievement_Unlocker
         }
         //string currentSystemLanguage = System.Globalization.CultureInfo.CurrentCulture.Name;
         string currentSystemLanguage = "en-US";
-        public List<string> AchievementIDs = new List<string>();
+        private List<string> AchievementIDs = new List<string>();
         private bool spoofActive = false;
         static HttpClientHandler handler = new HttpClientHandler()
         {
@@ -255,7 +255,9 @@ namespace Xbox_Achievement_Unlocker
                 var bodyconverted = new StringContent(requestbody, Encoding.UTF8, "application/json");
                 try
                 {
+                    Debug.WriteLine("https://achievements.xboxlive.com/users/xuid(" + MainWindow.xuid + ")/achievements/" + SCID + "/update");
                     client.PostAsync("https://achievements.xboxlive.com/users/xuid(" + MainWindow.xuid + ")/achievements/" + SCID + "/update", bodyconverted);
+                    AchievementIDs.Clear();
                 }
                 catch (HttpRequestException ex)
                 {
@@ -399,7 +401,7 @@ namespace Xbox_Achievement_Unlocker
 
         private void BTN_SpoofStop_Click(object sender, EventArgs e)
         {
-            
+
             SpoofingTime.Enabled = false;
             SpoofActive = false;
             timer.Stop();
@@ -431,8 +433,7 @@ namespace Xbox_Achievement_Unlocker
                 DGV_AchievementList.Rows[numRowChecked].Cells[0].Value = 2;
                 AchievementIDs.Add(DGV_AchievementList.Rows[numRowChecked].Cells["CL_ID"].Value.ToString());
                 numRowChecked++;
-            }
-            BTN_Unlock_Click(new object(), new EventArgs());
+            }            
         }
 
         private void SpoofingTime_Tick(object sender, EventArgs e)
@@ -442,6 +443,7 @@ namespace Xbox_Achievement_Unlocker
             if (CHB_Automatic.Checked && timerLeft == (timeAchivements * 60))
             {
                 ShortByPercent();
+                BTN_Unlock_Click(new object(), new EventArgs());
                 timerLeft = 0;
             }
 
@@ -452,7 +454,7 @@ namespace Xbox_Achievement_Unlocker
                 client.DefaultRequestHeaders.Add("accept", "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", MainWindow.xauthtoken);
 
-                var requestbody = new StringContent("{\"titles\":[{\"expiration\":600,\"id\":" + TitleID + ",\"state\":\"active\",\"sandbox\":\"RETAIL\"}]}", encoding: Encoding.UTF8, "application/json");
+                StringContent requestbody = new StringContent("{\"titles\":[{\"expiration\":600,\"id\":" + TitleID + ",\"state\":\"active\",\"sandbox\":\"RETAIL\"}]}", encoding: Encoding.UTF8, "application/json");
                 client.PostAsync("https://presence-heartbeat.xboxlive.com/users/xuid(" + MainWindow.xuid + ")/devices/current", requestbody);
                 timerSendSpoof = 0;
             }
@@ -473,8 +475,11 @@ namespace Xbox_Achievement_Unlocker
                     SpoofingTime.Enabled = false;
                     timer.Stop();
                     timer.Reset();
-                }else
+                }
+                else
+                {
                     //e.Cancel = true ;
+                }
             }
 
         }
@@ -505,6 +510,11 @@ namespace Xbox_Achievement_Unlocker
                     throw;
                 }
             }
+        }
+
+        private void AchievementList_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

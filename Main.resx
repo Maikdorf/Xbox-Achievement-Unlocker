@@ -1,0 +1,637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema 
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BTN_Resize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="BTN_Resize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 3</value>
+  </data>
+  <data name="BTN_Resize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 15</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BTN_Resize.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;BTN_Resize.Name" xml:space="preserve">
+    <value>BTN_Resize</value>
+  </data>
+  <data name="&gt;&gt;BTN_Resize.Type" xml:space="preserve">
+    <value>FontAwesome.Sharp.IconButton, FontAwesome.Sharp, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f</value>
+  </data>
+  <data name="&gt;&gt;BTN_Resize.Parent" xml:space="preserve">
+    <value>PNL_Move</value>
+  </data>
+  <data name="&gt;&gt;BTN_Resize.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="iconButton3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="iconButton3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>53, 3</value>
+  </data>
+  <data name="iconButton3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 15</value>
+  </data>
+  <data name="iconButton3.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;iconButton3.Name" xml:space="preserve">
+    <value>iconButton3</value>
+  </data>
+  <data name="&gt;&gt;iconButton3.Type" xml:space="preserve">
+    <value>FontAwesome.Sharp.IconButton, FontAwesome.Sharp, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f</value>
+  </data>
+  <data name="&gt;&gt;iconButton3.Parent" xml:space="preserve">
+    <value>PNL_Move</value>
+  </data>
+  <data name="&gt;&gt;iconButton3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="iconButton2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="iconButton2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 3</value>
+  </data>
+  <data name="iconButton2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 15</value>
+  </data>
+  <data name="iconButton2.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;iconButton2.Name" xml:space="preserve">
+    <value>iconButton2</value>
+  </data>
+  <data name="&gt;&gt;iconButton2.Type" xml:space="preserve">
+    <value>FontAwesome.Sharp.IconButton, FontAwesome.Sharp, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f</value>
+  </data>
+  <data name="&gt;&gt;iconButton2.Parent" xml:space="preserve">
+    <value>PNL_Move</value>
+  </data>
+  <data name="&gt;&gt;iconButton2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="iconButton1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 3</value>
+  </data>
+  <data name="iconButton1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 15</value>
+  </data>
+  <data name="iconButton1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;iconButton1.Name" xml:space="preserve">
+    <value>iconButton1</value>
+  </data>
+  <data name="&gt;&gt;iconButton1.Type" xml:space="preserve">
+    <value>FontAwesome.Sharp.IconButton, FontAwesome.Sharp, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f</value>
+  </data>
+  <data name="&gt;&gt;iconButton1.Parent" xml:space="preserve">
+    <value>PNL_Move</value>
+  </data>
+  <data name="&gt;&gt;iconButton1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="PNL_Move.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="PNL_Move.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="PNL_Move.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 21</value>
+  </data>
+  <data name="PNL_Move.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;PNL_Move.Name" xml:space="preserve">
+    <value>PNL_Move</value>
+  </data>
+  <data name="&gt;&gt;PNL_Move.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PNL_Move.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;PNL_Move.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PB_Splash.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 247</value>
+  </data>
+  <data name="PB_Splash.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 67</value>
+  </data>
+  <data name="PB_Splash.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="PB_Splash.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;PB_Splash.Name" xml:space="preserve">
+    <value>PB_Splash</value>
+  </data>
+  <data name="&gt;&gt;PB_Splash.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PB_Splash.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;PB_Splash.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PB_GamerPic.ImageLocation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PB_GamerPic.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 64</value>
+  </data>
+  <data name="PB_GamerPic.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 116</value>
+  </data>
+  <data name="PB_GamerPic.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>CenterImage</value>
+  </data>
+  <data name="PB_GamerPic.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="PB_GamerPic.WaitOnLoad" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;PB_GamerPic.Name" xml:space="preserve">
+    <value>PB_GamerPic</value>
+  </data>
+  <data name="&gt;&gt;PB_GamerPic.Type" xml:space="preserve">
+    <value>Xbox_Achievement_Unlocker.CustomControls.CircularPictureBox, Xbox Achievement Unlocker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;PB_GamerPic.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;PB_GamerPic.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="LBL_GameScore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LBL_GameScore.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Century Gothic, 15.75pt, style=Bold</value>
+  </data>
+  <data name="LBL_GameScore.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="LBL_GameScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>66, 218</value>
+  </data>
+  <data name="LBL_GameScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 25</value>
+  </data>
+  <data name="LBL_GameScore.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="LBL_GameScore.Text" xml:space="preserve">
+    <value>0000000</value>
+  </data>
+  <data name="&gt;&gt;LBL_GameScore.Name" xml:space="preserve">
+    <value>LBL_GameScore</value>
+  </data>
+  <data name="&gt;&gt;LBL_GameScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_GameScore.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;LBL_GameScore.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="iconPictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 216</value>
+  </data>
+  <data name="iconPictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 32</value>
+  </data>
+  <data name="iconPictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;iconPictureBox1.Name" xml:space="preserve">
+    <value>iconPictureBox1</value>
+  </data>
+  <data name="&gt;&gt;iconPictureBox1.Type" xml:space="preserve">
+    <value>FontAwesome.Sharp.IconPictureBox, FontAwesome.Sharp, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f</value>
+  </data>
+  <data name="&gt;&gt;iconPictureBox1.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;iconPictureBox1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="LBL_GamerTag.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LBL_GamerTag.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Century Gothic, 15.75pt, style=Bold</value>
+  </data>
+  <data name="LBL_GamerTag.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 183</value>
+  </data>
+  <data name="LBL_GamerTag.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 25</value>
+  </data>
+  <data name="LBL_GamerTag.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="LBL_GamerTag.Text" xml:space="preserve">
+    <value>XXXXXXX</value>
+  </data>
+  <data name="&gt;&gt;LBL_GamerTag.Name" xml:space="preserve">
+    <value>LBL_GamerTag</value>
+  </data>
+  <data name="&gt;&gt;LBL_GamerTag.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_GamerTag.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;LBL_GamerTag.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="BTN_Menu_Games.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BTN_Menu_Games.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Century Gothic, 15pt, style=Bold</value>
+  </data>
+  <data name="BTN_Menu_Games.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BTN_Menu_Games.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 320</value>
+  </data>
+  <data name="BTN_Menu_Games.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 40</value>
+  </data>
+  <data name="BTN_Menu_Games.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="BTN_Menu_Games.Text" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="BTN_Menu_Games.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="BTN_Menu_Games.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Games.Name" xml:space="preserve">
+    <value>BTN_Menu_Games</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Games.Type" xml:space="preserve">
+    <value>Xbox_Achievement_Unlocker.CustomControls.ButtomRadius, Xbox Achievement Unlocker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Games.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Games.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="BTN_Menu_About.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BTN_Menu_About.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Century Gothic, 15pt, style=Bold</value>
+  </data>
+  <data name="BTN_Menu_About.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BTN_Menu_About.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 527</value>
+  </data>
+  <data name="BTN_Menu_About.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 40</value>
+  </data>
+  <data name="BTN_Menu_About.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="BTN_Menu_About.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="BTN_Menu_About.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="BTN_Menu_About.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_About.Name" xml:space="preserve">
+    <value>BTN_Menu_About</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_About.Type" xml:space="preserve">
+    <value>Xbox_Achievement_Unlocker.CustomControls.ButtomRadius, Xbox Achievement Unlocker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_About.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_About.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="BTN_Menu_Achivements.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BTN_Menu_Achivements.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Century Gothic, 15pt, style=Bold</value>
+  </data>
+  <data name="BTN_Menu_Achivements.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BTN_Menu_Achivements.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 382</value>
+  </data>
+  <data name="BTN_Menu_Achivements.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 40</value>
+  </data>
+  <data name="BTN_Menu_Achivements.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="BTN_Menu_Achivements.Text" xml:space="preserve">
+    <value>Achiev</value>
+  </data>
+  <data name="BTN_Menu_Achivements.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="BTN_Menu_Achivements.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Achivements.Name" xml:space="preserve">
+    <value>BTN_Menu_Achivements</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Achivements.Type" xml:space="preserve">
+    <value>Xbox_Achievement_Unlocker.CustomControls.ButtomRadius, Xbox Achievement Unlocker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Achivements.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Achivements.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="BTN_Menu_Profile.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BTN_Menu_Profile.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Century Gothic, 15pt, style=Bold</value>
+  </data>
+  <data name="BTN_Menu_Profile.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="BTN_Menu_Profile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BTN_Menu_Profile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 260</value>
+  </data>
+  <data name="BTN_Menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 40</value>
+  </data>
+  <data name="BTN_Menu_Profile.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="BTN_Menu_Profile.Text" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="BTN_Menu_Profile.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="BTN_Menu_Profile.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Profile.Name" xml:space="preserve">
+    <value>BTN_Menu_Profile</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Profile.Type" xml:space="preserve">
+    <value>Xbox_Achievement_Unlocker.CustomControls.ButtomRadius, Xbox Achievement Unlocker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Profile.Parent" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;BTN_Menu_Profile.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="PNL_Main_L.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="PNL_Main_L.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 5</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="PNL_Main_L.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 3</value>
+  </data>
+  <data name="PNL_Main_L.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 594</value>
+  </data>
+  <data name="PNL_Main_L.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PNL_Main_L.Name" xml:space="preserve">
+    <value>PNL_Main_L</value>
+  </data>
+  <data name="&gt;&gt;PNL_Main_L.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PNL_Main_L.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PNL_Main_L.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="EC_FRM_Main.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>142, 16</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>8, 17</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1072, 604</value>
+  </data>
+  <data name="PNL_Content.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="PNL_Content.Location" type="System.Drawing.Point, System.Drawing">
+    <value>164, 8</value>
+  </data>
+  <data name="PNL_Content.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 10, 10, 10</value>
+  </data>
+  <data name="PNL_Content.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>40, 10, 10, 10</value>
+  </data>
+  <data name="PNL_Content.Size" type="System.Drawing.Size, System.Drawing">
+    <value>903, 591</value>
+  </data>
+  <data name="PNL_Content.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;PNL_Content.Name" xml:space="preserve">
+    <value>PNL_Content</value>
+  </data>
+  <data name="&gt;&gt;PNL_Content.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PNL_Content.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PNL_Content.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Century Gothic, 9.75pt</value>
+  </data>
+  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 5, 5, 5</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="&gt;&gt;EC_FRM_Main.Name" xml:space="preserve">
+    <value>EC_FRM_Main</value>
+  </data>
+  <data name="&gt;&gt;EC_FRM_Main.Type" xml:space="preserve">
+    <value>Xbox_Achievement_Unlocker.CustomControls.ElipsePropControl, Xbox Achievement Unlocker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;EC_PNL_Content.Name" xml:space="preserve">
+    <value>EC_PNL_Content</value>
+  </data>
+  <data name="&gt;&gt;EC_PNL_Content.Type" xml:space="preserve">
+    <value>Xbox_Achievement_Unlocker.CustomControls.ElipsePropControl, Xbox Achievement Unlocker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="EC_PNL_Content.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>260, 16</value>
+  </metadata>
+</root>

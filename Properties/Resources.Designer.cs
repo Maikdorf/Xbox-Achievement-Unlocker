@@ -63,9 +63,9 @@ namespace Xbox_Achievement_Unlocker.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap New_Game {
+        internal static System.Drawing.Bitmap Close {
             get {
-                object obj = ResourceManager.GetObject("New Game", resourceCulture);
+                object obj = ResourceManager.GetObject("Close", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,19 @@ namespace Xbox_Achievement_Unlocker.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wallpaperbetter_com_1366x768 {
+        internal static System.Drawing.Bitmap closeBlack {
             get {
-                object obj = ResourceManager.GetObject("wallpaperbetter.com_1366x768", resourceCulture);
+                object obj = ResourceManager.GetObject("closeBlack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap New_Game {
+            get {
+                object obj = ResourceManager.GetObject("New Game", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

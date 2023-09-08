@@ -13,6 +13,8 @@ using Memory;
 using System.Threading;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using System.Windows.Interop;
+using Xbox_Achievement_Unlocker.Class.Helpers;
 
 namespace Xbox_Achievement_Unlocker
 {
@@ -216,7 +218,7 @@ namespace Xbox_Achievement_Unlocker
                 implement 1 single form but if this with the game spoofer take a message box
                 */
                 Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "AchievementList").SingleOrDefault<Form>();
-                
+
                 if (exist != null && ALForm.SpoofActive)
                 {
                     DialogResult CancelSpoof = MessageBox.Show("", "", MessageBoxButtons.YesNo);
@@ -232,7 +234,7 @@ namespace Xbox_Achievement_Unlocker
                     }
                     //ALForm.Close();
                 }
-                
+
                 ALForm = new AchievementList();
                 ALForm.Show();
                 ALForm.PopulateAchievementList(responseString, SelectedGame.ImageLocation.ToString());
@@ -416,22 +418,139 @@ namespace Xbox_Achievement_Unlocker
                     MessageBox.Show("something did a fucky wucky and I dont have a specific message for the error code", "fucky wucky");
             }
         }
-        private void saveFileGameList(string line)
+
+        private async void scanAllAchievementsList()
+        {
+            String line;
+            try
+            {
+
+                //Pass the file path and file name to the StreamReader constructor
+                StreamReader sr = new StreamReader("GamesListAll.csv");
+                //Read the first line of text
+                line = sr.ReadLine();
+
+                List<object> items = new List<object>();
+                int countFiles = 0;
+                while (line != null)
+                {
+                    countFiles++;
+                    string[] row = line.Split(",");
+
+                    if (row[0] != "") {
+                        if (!File.Exists("games/" + Convert.ToString(row[0]) + ".json"))
+                        {
+                            Thread.Sleep(17930);
+                            string stats = statsTrueAchivements(Convert.ToString(row[1]));
+
+                            client.DefaultRequestHeaders.Clear();
+                            client.DefaultRequestHeaders.Add("x-xbl-contract-version", "4");
+                            client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
+                            client.DefaultRequestHeaders.Add("accept", "application/json");
+                            client.DefaultRequestHeaders.Add("accept-language", currentSystemLanguage);
+                            try
+                            {
+                                client.DefaultRequestHeaders.Add("Authorization", xauthtoken);
+                            }
+                            catch (Exception exception)
+                            {
+                                MessageBox.Show(
+                                    "Couldnt find xauth. Go click the FuckyWucky Fixer button until this doesnt happen.");
+                                return;
+                            }
+                            client.DefaultRequestHeaders.Add("Host", "achievements.xboxlive.com");
+                            client.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
+                            try
+                            {
+                                responseString = await client.GetStringAsync("https://achievements.xboxlive.com/users/xuid(" + xuid + ")/achievements?titleId=" + Convert.ToString(row[0]) + "&maxItems=1000");
+
+                                #region searchAchievements
+                                var Jsonresponse = (dynamic)(new JObject());
+                                Jsonresponse = (dynamic)JObject.Parse(responseString);
+                                if (Jsonresponse.achievements.Count > 0)
+                                {
+                                    string noCompible = "true";
+                                    for (int i = 0; i < Jsonresponse.achievements.Count; i++)
+                                    {
+                                        if (Jsonresponse.achievements[i].progression.requirements.Count != 0 &&
+                                            Jsonresponse.achievements[i].progression.requirements[0].id != "00000000-0000-0000-0000-000000000000")
+                                        {
+                                            noCompible = "false";
+                                            break;
+                                        }
+                                    }
+                                    saveFileGameList("[" + responseString + ",{\"isCompatible\": " + noCompible + ",\"timeCompletion\": \"" + stats + "\"}]", "games/" + Convert.ToString(row[0]) + ".json");
+                                }
+                                #endregion                                                                                                
+                            }
+                            catch (HttpRequestException ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                                continue;
+                            }
+                        }
+                        else
+                            Debug.WriteLine(Convert.ToString(row[1])+" el archivo existe!");                            
+                    }
+                    line = sr.ReadLine();
+                    
+                }
+                //close the file
+                sr.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Debug.WriteLine("Executing finally block.");
+            }
+            
+        }
+
+        public string statsTrueAchivements(string nameGame)
         {
             try
             {
-                String path = "GamesListAll.csv";
+                string[] scapeCharacter = { "'", "®", "™", "’", ":", "(", ")", "-", "!", "™" };
+                foreach (var character in scapeCharacter)
+                    nameGame = nameGame.Replace(character, "");
+
+                nameGame = nameGame.Replace(" ", "-");
+                HtmlAgilityPack.HtmlWeb web = new();
+                HtmlAgilityPack.HtmlDocument doc = web.Load("https://www.trueachievements.com/game/" + nameGame + "/completiontime");
+                if (doc.DocumentNode.SelectNodes("//*[@id=\"divInfo\"]/p[1]/strong") != null)
+                {
+                    foreach (var item in doc.DocumentNode.SelectNodes("//*[@id=\"divInfo\"]/p[1]/strong"))
+                    {
+                        return item.InnerText.ToString();
+                    }
+                }
+                return "No Data!";
+            }
+            catch
+            {
+                return "Error Data!";
+                throw;
+            }
+        }
+        private void saveFileGameList(string line, string fileName = "GamesListAll.csv")
+        {
+            try
+            {
+                String path = fileName;
                 StreamWriter sw = new StreamWriter(path);
                 sw.WriteLine(line);
                 sw.Close();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception: " + e.Message);
+                Debug.WriteLine("Exception: " + e.Message);
             }
             finally
             {
-                Console.WriteLine("Executing finally block.");
+                Debug.WriteLine("Executing finally block.");
             }
         }
         private void BTN_SpoofGame_Click(object sender, EventArgs e)
@@ -487,10 +606,10 @@ namespace Xbox_Achievement_Unlocker
             {
                 using (StreamWriter writer = new StreamWriter("GameList.txt"))
                 {
-                    for (int i = 0; i < dataTitles.titles.Count; i++)
+                    for (int i = 0; i < dataTitles.titles.Count; i++) //TODO:: NEW GAME SAVELIST.
                     {
                         if (dataTitles.titles[i].modernTitleId.ToString().Length > 0)
-                            writer.WriteLine(dataTitles.titles[i].modernTitleId.ToString() + "," + dataTitles.titles[i].name.ToString());
+                            writer.WriteLine(dataTitles.titles[i].modernTitleId.ToString() + "," + dataTitles.titles[i].name.ToString() + ",unknown");
                     }
                 }
 
@@ -502,6 +621,14 @@ namespace Xbox_Achievement_Unlocker
                 else
                     MessageBox.Show("something did a fucky wucky and I dont have a specific message for the error code", "fucky wucky");
             }
+
+            DialogResult response = MessageBox.Show("Want to contribute to the community by submitting compatible games?", "Share",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (response == DialogResult.Yes)
+            {
+                //TODO:: preguntar si desea colaborar
+                _ = new Compatible(xauthtoken, xuid);
+            }
+            
         }
 
         private void Skidbox_LinkClicked(object sender, LinkClickedEventArgs e)

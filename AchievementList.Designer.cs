@@ -452,6 +452,7 @@ namespace Xbox_Achievement_Unlocker
             Name = "AchievementList";
             Text = "Monster Hunter (windows version)";
             FormClosed += AchievementList_FormClosed;
+            Load += AchievementList_Load;
             KeyDown += AchievementList_KeyDown;
             ((System.ComponentModel.ISupportInitialize)DGV_AchievementList).EndInit();
             panel1.ResumeLayout(false);
